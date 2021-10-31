@@ -1,0 +1,36 @@
+Connecting to the frontend
+
+API needs to be deployed on some server (local or remote)
+
+Server rendered
+JSON object from the API 
+const req = new XMLHttpRequest();
+  req.open('GET', '/api/products');
+  req.onload = function(){
+    const data = JSON.parse(req.response);
+    addList({data});
+  }
+  req.send();
+
+  CRUD
+  Create = post 
+  read = GET
+  update = patch 
+  delete = delete
+
+  Client-side validation helps prevent errors
+
+
+HTTP STATUS CODE GROUPS
+
+  1xx - information
+  2xx - success codes
+  3xx - redirect
+  4xx - client errors
+  5xx - server errors
+  
+Status code is up for debate. 
+
+Error Code (400) - Bad Request (server cannot or will not process the request for something perceived to be client error)
+403 - Forbidden(server understood the request but refuses to accept it)
+422 - Unprocessible Entity (server understands the content type of the request entity)

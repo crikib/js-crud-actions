@@ -1,3 +1,34 @@
+const cookieParser = require("cookie-parser");
+const { text } = require("express");
+
+document.getElementById("search").onclick = function() {
+  var textValue = document.getElementbyId("search-terms").value;
+  var priceValue = document.getElementById("price").value;
+  var colorValue = document.getElementById("color").value;
+
+  if (priceValue === "" && colorValue === "") {
+    axios.get(`/api/products/search?keywords=${textValue}`)
+    .then(showResults);
+  } else {
+    let rootQuery = `/api/products/detailSearch?`;
+    let priceQuery = "";
+    let colorQuery = "";
+
+    if (textValue) {
+      rootQuery += `name[val]=${textValue}`;
+    }
+
+    if (priceValue) {
+      priceQuery += `price[op]=lt&price[value]=${priceValue}`;
+    }
+
+    if (colorValue) {
+      if (priceValue || textValue) colorQuery = "&";
+      colorQuery += `color[op] = eq&color[val]=${colorValue}`;
+    }
+  }
+}
+
 function showResults({ data }) {
   document.querySelector("h2").className = "hidden";
 

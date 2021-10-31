@@ -1,3 +1,23 @@
+//to read the products in the database
+
+/*document.getElementById("load").onclick = function(){
+  axios.get('/api/products').then(addList); //to read the products in the database
+}*/
+
+//to get a single record
+document.getElementById("load").onclick = function(){
+  const value = document.getElementById("product-id").value;
+  if (value === ""){
+    axios.get("/api/products").then(addList);
+  } else {
+    axios.get(`/api/products/${value}`).then(addSingle).catch((err)=> {
+      if (err.response.status === 404){
+        notFound();
+      }
+      });
+    }
+  };
+
 
 function addList({ data }) {
   resetContentArea();
